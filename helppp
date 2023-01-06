@@ -1,0 +1,62 @@
+from functions import load_questions
+import os
+import random
+
+
+if __name__ == '__main__':
+    filename = 'questions.json'
+
+PATH_TO_QUESTIONS = os.path.join('questions.json')
+loaded_questions = load_questions
+questions = load_questions(PATH_TO_QUESTIONS)
+
+
+class Question:
+    def __innit__(self, text, hard, correct, is_asked=False, answer=None):
+        self.text = text
+        self.hard = hard
+        self.correct = correct
+        self.is_asked = is_asked
+        self.answer = answer
+        self.score = self.hard * 10
+
+    def get_points(self):
+        return self.score
+
+    """Возвращает int, количество баллов.
+    Баллы зависят от сложности: за 1 дается 10 баллов, за 5 дается 50 баллов.
+    """
+
+    def is_correct(self):
+        if self.answer == self.correct:
+            return True
+
+    """Возвращает True, если ответ пользователя совпадает
+    с верным ответов иначе False.
+    """
+
+    def build_question(self):
+        return f"Вопрос: {self.text}. Сложность: {self.hard}/5"
+
+    """Возвращает вопрос в понятном пользователю виде, например:
+    Вопрос: What do people often call American flag?
+    Сложность 4/5
+    """
+
+    def build_positive_feedback(self):
+        return f"Ответ верный, получено {self.score} баллов"
+
+    """Возвращает :
+    Ответ верный, получено __ баллов
+    """
+
+    def build_negative_feedback(self):
+        return f"Ответ неверный, правильный ответ: {self.correct}"
+
+    """Возвращает :
+    Ответ неверный, верный ответ __
+    """
+
+# user_input = input("Нажмите Enter для старта  ")
+
+random.randint(loaded_questions)
